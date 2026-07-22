@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Circle - منصة التواصل والأخبار</title>
+
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #000000;
+    color: #e7e9ea;
+    direction: rtl;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.auth-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+.login-box {
+    background-color: #16181c;
+    border: 1px solid #2f3336;
+    border-radius: 16px;
+    padding: 35px 30px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.x-logo {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.login-box h2 {
+    font-size: 20px;
+    margin-bottom: 25px;
+    color: #f7f9f9;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 15px;
+    background-color: #000000;
+    border: 1px solid #333639;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.login-box input:focus {
+    border-color: #1d9bf0;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #eff3f4;
+    color: #0f1419;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #d7dbdc;
+}
+
+.toggle-link {
+    margin-top: 20px;
+    color: #1d9bf0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.toggle-link:hover {
+    text-decoration: underline;
+}
+
+.admin-small-link {
+    position: absolute;
+    bottom: 20px;
+    color: #71767b;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.app-layout {
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    border-left: 1px solid #2f3336;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.sidebar-logo {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1d9bf0;
+    margin-bottom: 30px;
+    padding-right: 10px;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 16px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #e7e9ea;
+    transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+    background-color: #181818;
+}
+
+.menu-item.active {
+    font-weight: bold;
+    color: #1d9bf0;
+}
+
+.logout-sidebar-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    border: 1px solid #f4212e;
+    color: #f4212e;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-sidebar-btn:hover {
+    background-color: #f4212e;
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+    border-left: 1px solid #2f3336;
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+.header-nav {
+    position: sticky;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #2f3336;
+    padding: 15px 20px;
+    z-index: 10;
+}
+
+.screen-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tweet-box {
+    padding: 20px;
+    border-bottom: 1px solid #2f3336;
+}
+
+.tweet-input {
+    width: 100%;
+    height: 90px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 17px;
+    resize: none;
+    outline: none;
+}
+
+.tweet-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-tweet {
+    background-color: #1d9bf0;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btn-tweet:hover {
+    background-color: #1a8cd8;
+}
+
+.feed-title {
+    padding: 15px 20px 5px 20px;
+    font-size: 14px;
+    color: #71767b;
+    font-weight: bold;
+}
+
+.tweet {
+    padding: 18px 20px;
+    border-bottom: 1px solid #2f3336;
+    transition: background-color 0.15s;
+}
+
+.tweet:hover {
+    background-color: #080808;
+}
+
+.tweet-header {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.author-name {
+    font-weight: bold;
+    color: #f7f9f9;
+}
+
+.author-handle {
+    color: #71767b;
+    font-size: 14px;
+}
+
+.tweet-content {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #e7e9ea;
+}
+
+.news-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #1d9bf0;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.news-link:hover {
+    text-decoration: underline;
+}
+
+#search-input {
+    width: calc(100% - 40px);
+    margin: 20px;
+    padding: 12px 20px;
+    background-color: #202327;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#search-input:focus {
+    border-color: #1d9bf0;
+    background-color: #000;
+}
+
+.section-subtitle {
+    padding: 15px 20px 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #1d9bf0;
+}
+
+.separator {
+    border: none;
+    border-bottom: 1px solid #2f3336;
+    margin: 15px 0;
+}
+
+.user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid #16181c;
+}
+
+.btn-follow {
+    background-color: #eff3f4;
+    color: #0f1419;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.admin-account-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin: 10px 20px;
+    background-color: #16181c;
+    border: 1px solid #2f3336;
+    border-radius: 10px;
+}
+
+.btn-delete {
+    background-color: #f4212e;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+@media (max-width: 768px) {
+    .app-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-left: none;
+        border-bottom: 1px solid #2f3336;
+    }
+    .sidebar-menu {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .menu-text {
+        display: none;
+    }
+}
+  </style>
+
+  
+</head>
+<body>
+  <link rel="stylesheet" href="style.css">
+
+    <div id="app-container" class="app-layout hidden">
+        
+        <aside class="sidebar">
+            <div class="sidebar-logo">◯ Circle</div>
+            <nav class="sidebar-menu">
+                <div class="menu-item active" id="nav-home" onclick="switchTab('home')">
+                    <span class="menu-icon">🏠</span>
+                    <span class="menu-text">الرئيسية</span>
+                </div>
+                <div class="menu-item" id="nav-search" onclick="switchTab('search')">
+                    <span class="menu-icon">🔍</span>
+                    <span class="menu-text">الترند والبحث</span>
+                </div>
+                <div class="menu-item" id="nav-friends" onclick="switchTab('friends')">
+                    <span class="menu-icon">👥</span>
+                    <span class="menu-text">الأصدقاء</span>
+                </div>
+            </nav>
+            <button class="logout-sidebar-btn" onclick="handleLogout()">تسجيل الخروج</button>
+        </aside>
+
+        <main class="main-content">
+            
+            <section id="timeline-screen" class="tab-screen">
+                <div class="header-nav">
+                    <div id="welcome-title" class="screen-title">الرئيسية</div>
+                </div>
+
+                <div class="tweet-box">
+                    <textarea class="tweet-input" id="tweet-text" placeholder="ماذا يحدث الآن؟!"></textarea>
+                    <div class="tweet-btn-container">
+                        <button class="btn-tweet" onclick="postTweet()">تغريد</button>
+                    </div>
+                </div>
+
+                <div class="feed-title">المنشورات الأخيرة</div>
+                <div id="user-tweets-feed"></div>
+            </section>
+
+            <section id="search-screen" class="tab-screen hidden">
+                <div class="header-nav">
+                    <div class="screen-title">استكشف الأخبار والبحث</div>
+                </div>
+                <input type="text" id="search-input" placeholder="🔍 ابحث عن حساب خويك هنا..." oninput="handleSearch()">
+                
+                <div id="search-results-section" class="hidden">
+                    <div class="section-subtitle">👤 نتائج البحث عن الحسابات:</div>
+                    <div id="search-users-results"></div>
+                    <hr class="separator">
+                </div>
+
+                <div class="section-subtitle">🔥 الأخبار والترندات المتداولة الآن (تتحدث تلقائياً)</div>
+                <div id="live-news-feed"></div>
+            </section>
+
+            <section id="friends-screen" class="tab-screen hidden">
+                <div class="header-nav">
+                    <div class="screen-title">الأصدقاء والمقترحون</div>
+                </div>
+                
+                <div class="section-subtitle">👥 أصدقائي الذين أتابعهم:</div>
+                <div id="following-list"></div>
+
+                <div class="section-subtitle">💡 أشخاص قد تعرفهم (اضغط لإضافتهم):</div>
+                <div id="all-users-list"></div>
+            </section>
+
+            <section id="admin-dashboard-screen" class="tab-screen hidden">
+                <div class="header-nav">
+                    <div class="screen-title" style="color: #f4212e;">🔒 لوحة الإدارة</div>
+                </div>
+                
+                <h3 style="margin: 15px 20px 10px;">👥 إدارة الحسابات المسجلة:</h3>
+                <div id="accounts-list"></div>
+
+                <hr class="separator">
+
+                <h3 style="margin: 15px 20px 10px;">🗑️ إدارة وحذف منشورات/رسايل المستخدمين:</h3>
+                <div id="admin-tweets-list"></div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="auth-container" class="auth-layout">
+        
+        <div id="login-screen" class="login-box">
+            <div class="x-logo" style="color: #1d9bf0;">◯</div>
+            <h2>تسجيل الدخول إلى circle</h2>
+            <input type="text" id="username" placeholder="اسم المستخدم">
+            <input type="password" id="password" placeholder="كلمة المرور">
+            <button class="btn-primary" onclick="handleLogin()">تسجيل الدخول</button>
+            <div class="toggle-link" onclick="showScreen('register-screen')">ليس لديك حساب؟ إنشاء حساب جديد</div>
+        </div>
+
+        <div id="register-screen" class="login-box hidden">
+            <div class="x-logo" style="color: #1d9bf0;">◯</div>
+            <h2>إنشاء حساب جديد في circle</h2>
+            <input type="text" id="reg-username" placeholder="اختر اسم المستخدم">
+            <input type="password" id="reg-password" placeholder="اختر كلمة المرور">
+            <button class="btn-primary" onclick="handleRegister()">إنشاء الحساب</button>
+            <div class="toggle-link" onclick="showScreen('login-screen')">لديك حساب بالفعل؟ تسجيل الدخول</div>
+        </div>
+
+        <div id="admin-login-screen" class="login-box hidden">
+            <div class="x-logo" style="color: #f4212e;">🔒</div>
+            <h2 style="color: #f4212e;">دخول المسؤول (Admin)</h2>
+            <input type="text" id="admin-username" placeholder="اسم المسؤول">
+            <input type="password" id="admin-password" placeholder="كلمة مرور المسؤول">
+            <button class="btn-primary" style="background-color: #f4212e; color: white;" onclick="handleAdminLogin()">تسجيل دخول الأدمن</button>
+            <div class="toggle-link" onclick="showScreen('login-screen')">إلغاء والعودة للخلف</div>
+        </div>
+
+        <div id="admin-link-trigger" class="admin-small-link" onclick="showScreen('admin-login-screen')">تسجيل الأدمن</div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+
+  <script>
+    // مفتاح الأدمن
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "admin123";
+
+const initialNews = [
+    { name: "أخبار عاجلة", handle: "@BreakingNews", content: "🚨 عاجل: إطلاق منصة Circle رسمياً للجميع.", time: "منذ دقيقتين" }
+];
+
+let currentUser = "";
+
+// 📥 جلب الحسابات والتغريدات
+function getUsers() {
+    return JSON.parse(localStorage.getItem('circle_users')) || {};
+}
+
+function saveUsers(users) {
+    localStorage.setItem('circle_users', JSON.stringify(users));
+}
+
+function getTweets() {
+    return JSON.parse(localStorage.getItem('circle_tweets')) || [];
+}
+
+function saveTweets(tweets) {
+    localStorage.setItem('circle_tweets', JSON.stringify(tweets));
+}
+
+// 🖥️ التنقل بين الشاشات
+window.showScreen = function(screenId) {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('register-screen').classList.add('hidden');
+    document.getElementById('admin-login-screen').classList.add('hidden');
+    document.getElementById('app-container').classList.add('hidden');
+    document.getElementById('auth-container').classList.add('hidden');
+
+    if (screenId === 'app-container') {
+        document.getElementById('app-container').classList.remove('hidden');
+    } else {
+        document.getElementById('auth-container').classList.remove('hidden');
+        document.getElementById(screenId).classList.remove('hidden');
+    }
+};
+
+window.switchTab = function(tabName) {
+    document.getElementById('timeline-screen').classList.add('hidden');
+    document.getElementById('search-screen').classList.add('hidden');
+    document.getElementById('friends-screen').classList.add('hidden');
+    document.getElementById('admin-dashboard-screen').classList.add('hidden');
+    
+    document.getElementById('nav-home').classList.remove('active');
+    document.getElementById('nav-search').classList.remove('active');
+    document.getElementById('nav-friends').classList.remove('active');
+
+    if (tabName === 'home') {
+        document.getElementById('timeline-screen').classList.remove('hidden');
+        document.getElementById('nav-home').classList.add('active');
+        renderTimelineTweets();
+    } else if (tabName === 'search') {
+        document.getElementById('search-screen').classList.remove('hidden');
+        document.getElementById('nav-search').classList.add('active');
+        loadLiveNews();
+    } else if (tabName === 'friends') {
+        document.getElementById('friends-screen').classList.remove('hidden');
+        document.getElementById('nav-friends').classList.add('active');
+        renderFriendsLists();
+    } else if (tabName === 'admin') {
+        document.getElementById('admin-dashboard-screen').classList.remove('hidden');
+        renderAdminDashboard();
+    }
+};
+
+// 🔐 تسجيل الدخول
+window.handleLogin = function() {
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value;
+    const users = getUsers();
+
+    if (user === "" || pass === "") return alert("الرجاء كتابة اسم المستخدم وكلمة المرور!");
+    
+    if (users[user] && users[user] === pass) {
+        currentUser = user;
+        document.getElementById('welcome-title').innerText = `الرئيسية (أهلاً @${user} ◯)`;
+        showScreen('app-container');
+        switchTab('home');
+    } else {
+        alert("خطأ: اسم المستخدم أو كلمة المرور غير صحيحة!");
+    }
+};
+
+// ✨ إنشاء حساب جديد
+window.handleRegister = function() {
+    const user = document.getElementById('reg-username').value.trim();
+    const pass = document.getElementById('reg-password').value;
+    const users = getUsers();
+
+    if (user === "" || pass === "") return alert("الرجاء ملء جميع الخانات!");
+
+    if (user in users || user === ADMIN_USERNAME) {
+        return alert("خطأ: اسم المستخدم موجود بالفعل!");
+    }
+
+    users[user] = pass;
+    saveUsers(users);
+
+    alert("✅ تم إنشاء حسابك بنجاح! يمكنك الآن تسجيل الدخول.");
+    showScreen('login-screen');
+    document.getElementById('username').value = user;
+};
+
+// 🔒 دخول الأدمن
+window.handleAdminLogin = function() {
+    const user = document.getElementById('admin-username').value.trim();
+    const pass = document.getElementById('admin-password').value;
+
+    if (user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
+        showScreen('app-container');
+        switchTab('admin');
+    } else {
+        alert("خطأ: معلومات المسؤول غير صحيحة!");
+    }
+};
+
+// 📝 نشر تغريدة
+window.postTweet = function() {
+    const text = document.getElementById('tweet-text').value.trim();
+    if (text === "") return alert("لا يمكنك كتابة منشور فارغ!");
+
+    const tweets = getTweets();
+    tweets.unshift({
+        id: Date.now().toString(),
+        author: currentUser,
+        text: text,
+        time: "الآن"
+    });
+
+    saveTweets(tweets);
+    document.getElementById('tweet-text').value = '';
+    renderTimelineTweets();
+};
+
+function renderTimelineTweets() {
+    const feed = document.getElementById('user-tweets-feed');
+    if (!feed) return;
+    feed.innerHTML = '';
+    const tweets = getTweets();
+
+    if (tweets.length === 0) {
+        feed.innerHTML = '<p style="color:#71767b; text-align:center; padding:20px;">لا توجد منشورات حالياً، شارك ما يدور في ذهنك أولاً!</p>';
+        return;
+    }
+
+    tweets.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'tweet';
+        div.innerHTML = `
+            <div class="tweet-header">
+                <span class="author-name">${t.author}</span>
+                <span class="author-handle">@${t.author} · ${t.time}</span>
+            </div>
+            <div class="tweet-content">${t.text}</div>
+        `;
+        feed.appendChild(div);
+    });
+}
+
+function loadLiveNews() {
+    const newsFeed = document.getElementById('live-news-feed');
+    newsFeed.innerHTML = '';
+    initialNews.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'tweet';
+        div.innerHTML = `
+            <div class="tweet-header">
+                <span class="author-name">${item.name}</span>
+                <span class="author-handle">${item.handle} · ${item.time}</span>
+            </div>
+            <div class="tweet-content">${item.content}</div>
+        `;
+        newsFeed.appendChild(div);
+    });
+}
+
+function renderFriendsLists() {
+    const allUsersList = document.getElementById('all-users-list');
+    if (!allUsersList) return;
+    allUsersList.innerHTML = '';
+    const users = getUsers();
+
+    let suggestionsCount = 0;
+    for (let username in users) {
+        if (username !== currentUser) {
+            suggestionsCount++;
+            const card = document.createElement('div');
+            card.className = 'user-card';
+            card.innerHTML = `
+                <span>👤 @${username}</span>
+                <button class="btn-follow">صديق</button>
+            `;
+            allUsersList.appendChild(card);
+        }
+    }
+
+    if (suggestionsCount === 0) {
+        allUsersList.innerHTML = '<p style="color:#71767b; font-size:14px; text-align:right;">لا توجد حسابات أخرى مسجلة حالياً.</p>';
+    }
+}
+
+function renderAdminDashboard() {
+    const users = getUsers();
+    const tweets = getTweets();
+
+    const listDiv = document.getElementById('accounts-list');
+    if (listDiv) {
+        listDiv.innerHTML = '';
+        if (Object.keys(users).length === 0) {
+            listDiv.innerHTML = "<p style='color:#71767b; padding:0 20px;'>لا توجد حسابات مسجلة حالياً.</p>";
+        } else {
+            for (const [username, password] of Object.entries(users)) {
+                const card = document.createElement('div');
+                card.className = 'admin-account-card';
+                card.innerHTML = `
+                    <button class="btn-delete" onclick="deleteUser('${username}')">حذف الحساب</button>
+                    <div style="text-align:right;">
+                        <b style="color:#1d9bf0;">@${username}</b> <br> 
+                        <span style="color:#71767b; font-size:13px;">كلمة المرور: ${password}</span>
+                    </div>
+                `;
+                listDiv.appendChild(card);
+            }
+        }
+    }
+
+    const tweetsDiv = document.getElementById('admin-tweets-list');
+    if (tweetsDiv) {
+        tweetsDiv.innerHTML = '';
+        if (tweets.length === 0) {
+            tweetsDiv.innerHTML = "<p style='color:#71767b; padding:0 20px;'>لا توجد رسائل أو منشورات لمسحها.</p>";
+        } else {
+            tweets.forEach((t) => {
+                const card = document.createElement('div');
+                card.className = 'admin-account-card';
+                card.innerHTML = `
+                    <button class="btn-delete" onclick="deleteTweet('${t.id}')">حذف الرسالة</button>
+                    <div style="text-align:right; max-width: 70%;">
+                        <b style="color:#1d9bf0;">@${t.author}</b> <span style="color:#71767b; font-size:12px;">(${t.time})</span><br>
+                        <span style="color:#e7e9ea; font-size:14px;">"${t.text}"</span>
+                    </div>
+                `;
+                tweetsDiv.appendChild(card);
+            });
+        }
+    }
+}
+
+window.deleteUser = function(username) {
+    if (confirm(`هل تريد بالتأكيد إزالة حساب @${username} نهائياً؟`)) {
+        const users = getUsers();
+        delete users[username];
+        saveUsers(users);
+        renderAdminDashboard();
+    }
+};
+
+window.deleteTweet = function(tweetId) {
+    if (confirm("هل تريد حذف هذه الرسالة نهائياً؟")) {
+        let tweets = getTweets();
+        tweets = tweets.filter(t => t.id !== tweetId);
+        saveTweets(tweets);
+        renderAdminDashboard();
+    }
+};
+
+window.handleLogout = function() {
+    currentUser = "";
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    showScreen('login-screen');
+};
+  </script>
+</body>
+</html>
